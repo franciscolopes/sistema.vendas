@@ -22,7 +22,7 @@ public class ItemCompraDaoImpl implements ItemCompraDao {
 	
 	
 	@Override
-	public void inserirAtualizar(ItemCompra x) {
+	public void inserir(ItemCompra x) {
 
 		if (x.getCodItemCompra() != null) {
 			x = em.merge(x);
@@ -31,6 +31,19 @@ public class ItemCompraDaoImpl implements ItemCompraDao {
 
 
 	}
+	
+	
+	@Override
+	public void atualizar(ItemCompra x) {
+
+		if (x.getCodItemCompra() != null) {
+			x = em.merge(x);
+		}
+		em.persist(x);
+
+
+	}
+	
 
 	@Override
 	public void excluir(ItemCompra x) {

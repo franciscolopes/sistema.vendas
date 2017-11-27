@@ -10,25 +10,29 @@ import dominio.Usuario;
 
 public class UsuarioDaoImpl implements UsuarioDao {
 
-
 	private EntityManager em;
-
-
 
 	public UsuarioDaoImpl() {
 		this.em = EM.getLocalEm();
 	}
 
-	
-	
 	@Override
-	public void inserirAtualizar(Usuario x) {
+	public void inserir(Usuario x) {
 
 		if (x.getCodUsuario() != null) {
 			x = em.merge(x);
 		}
 		em.persist(x);
 
+	}
+
+	@Override
+	public void atualizar(Usuario x) {
+
+		if (x.getCodUsuario() != null) {
+			x = em.merge(x);
+		}
+		em.persist(x);
 
 	}
 
@@ -38,15 +42,14 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		x = em.merge(x);
 		em.remove(x);
 
-
 	}
 
 	@Override
 	public Usuario buscar(int codUsuario) {
 		return em.find(Usuario.class, codUsuario);
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> buscarTodos() {
@@ -57,4 +60,46 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Usuario buscaNomeExato(String nome) {
+		String jpql = "SELECT x FROM Usuario x WHERE x.nome = :p1";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p1", nome);
+		List<Usuario> aux = query.getResultList();
+		return (aux.size() > 0) ? aux.get(0) : null;
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Usuario buscaNomeExatoDiferente(Integer codUsuario, String nome) {
+		String jpql = "SELECT x FROM Produto x WHERE x.codUsuario <> :p0 AND x.nome = :p1";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p0", codUsuario);
+		query.setParameter("p1", nome);
+		List<Usuario> aux = query.getResultList();
+		return (aux.size() > 0) ? aux.get(0) : null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> buscarTodosOrdenadosPorNome() {
+		String jpql = "SELECT x FROM Usuario x ORDER BY x.nome";
+		Query query = em.createQuery(jpql);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> buscarPorNome(String trecho) {
+		String jpql = "SELECT x FROM Usuario x WHERE x.nome LIKE :p1";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p1", "%"+trecho+"%");
+		return query.getResultList();
+	}
+
+	
+	
+	
 }

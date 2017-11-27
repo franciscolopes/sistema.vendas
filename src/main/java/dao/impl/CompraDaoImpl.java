@@ -22,7 +22,7 @@ public class CompraDaoImpl implements CompraDao {
 	
 	
 	@Override
-	public void inserirAtualizar(Compra x) {
+	public void inserir(Compra x) {
 
 		if (x.getCodCompra() != null) {
 			x = em.merge(x);
@@ -31,6 +31,18 @@ public class CompraDaoImpl implements CompraDao {
 
 
 	}
+	
+	@Override
+	public void atualizar(Compra x) {
+
+		if (x.getCodCompra() != null) {
+			x = em.merge(x);
+		}
+		em.persist(x);
+
+
+	}
+	
 
 	@Override
 	public void excluir(Compra x) {
@@ -56,5 +68,18 @@ public class CompraDaoImpl implements CompraDao {
 		return query.getResultList();
 
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Compra> buscarPorAno(int anoMin, int anoMax) {
+		String jpql = "SELECT x FROM Compra x WHERE x.ano >= :p2 AND x.ano <= :p3";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p2", anoMin);
+		query.setParameter("p3", anoMax);
+		return query.getResultList();
+	}
+
+	
 
 }

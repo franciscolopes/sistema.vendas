@@ -17,6 +17,7 @@ import dominio.Usuario;
 import servico.CompraServico;
 import servico.ItemCompraServico;
 import servico.ProdutoServico;
+import servico.ServicoException;
 import servico.UsuarioServico;
 
 @WebServlet("/Instanciacao")
@@ -80,70 +81,35 @@ public class Instanciacao extends HttpServlet {
 			System.out.println("Teste do preco total da compra: Preco total da compra"+c1+":"); 
 			System.out.println(c1.getPreçoTotal());
 
-			
-/*
-			EntityManagerFactory emf = Persistence.createEntityManagerFactory("meujpa");
-			
-			EntityManager em = emf.createEntityManager();
-			
-			em.getTransaction().begin();
-			em.persist(u1);
-			em.persist(u2);
-			
-			em.persist(c1);
-			em.persist(c2);
-			em.persist(c3);
-			em.persist(c4);
-			
-			
-			em.persist(p1);
-			em.persist(p2);
-			em.persist(p3);
-			em.persist(p4);
-			
-			em.persist(iC1);
-			em.persist(iC2);
-			em.persist(iC3);
-			em.persist(iC4);
-			em.persist(iC5);
-			em.persist(iC6);
-			em.persist(iC7);
-			em.persist(iC8);
-			em.persist(iC9);
-			
-			em.getTransaction().commit();
-			
-			em.close();
-			emf.close();*/
-			
+
 			UsuarioServico us = new UsuarioServico();
 			CompraServico cs = new CompraServico();
 			ProdutoServico ps = new ProdutoServico();
 			ItemCompraServico iCs = new ItemCompraServico();
 			
-			us.inserirAtualizar(u1);
-			us.inserirAtualizar(u2);
+			us.inserir(u1);
+			us.inserir(u2);
 			
-			cs.inserirAtualizar(c1);
-			cs.inserirAtualizar(c2);
-			cs.inserirAtualizar(c3);
-			cs.inserirAtualizar(c4);
+			cs.inserir(c1);
+			cs.inserir(c2);
+			cs.inserir(c3);
+			cs.inserir(c4);
 			
 			
-			ps.inserirAtualizar(p1);
-			ps.inserirAtualizar(p2);
-			ps.inserirAtualizar(p3);
-			ps.inserirAtualizar(p4);
+			ps.inserir(p1);
+			ps.inserir(p2);
+			ps.inserir(p3);
+			ps.inserir(p4);
 			
-			iCs.inserirAtualizar(iC1);
-			iCs.inserirAtualizar(iC2);
-			iCs.inserirAtualizar(iC3);
-			iCs.inserirAtualizar(iC4);
-			iCs.inserirAtualizar(iC5);
-			iCs.inserirAtualizar(iC6);
-			iCs.inserirAtualizar(iC7);
-			iCs.inserirAtualizar(iC8);
-			iCs.inserirAtualizar(iC9);
+			iCs.inserir(iC1);
+			iCs.inserir(iC2);
+			iCs.inserir(iC3);
+			iCs.inserir(iC4);
+			iCs.inserir(iC5);
+			iCs.inserir(iC6);
+			iCs.inserir(iC7);
+			iCs.inserir(iC8);
+			iCs.inserir(iC9);
 			
 			response.getWriter().append("Fim");
 
@@ -154,6 +120,9 @@ public class Instanciacao extends HttpServlet {
 
 		catch (ParseException e) {
 			System.out.println("Erro: " + e.getMessage());
+		}
+		catch (ServicoException e) {
+			response.getWriter().append("Erro! " + e.getMessage());
 		}
 
 		

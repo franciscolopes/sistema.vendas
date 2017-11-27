@@ -2,9 +2,9 @@ package servico;
 
 import java.util.List;
 
-import dao.ItemCompraDao;
 import dao.DaoFactory;
-import dao.impl.EM;
+import dao.ItemCompraDao;
+import dao.Transaction;
 import dominio.ItemCompra;
 
 public class ItemCompraServico {
@@ -16,16 +16,58 @@ public class ItemCompraServico {
 		dao = DaoFactory.criarItemCompraDao();
 	}
 	
-	public void inserirAtualizar(ItemCompra x) {
-		EM.getLocalEm().getTransaction().begin();
-		dao.inserirAtualizar(x);
-		EM.getLocalEm().getTransaction().commit();
+	public void inserir(ItemCompra x) throws ServicoException {
+		try {
+			
+			Transaction.begin();
+			dao.inserir(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
+
 	}
 	
-	public void excluir(ItemCompra x) {
-		EM.getLocalEm().getTransaction().begin();
-		dao.excluir(x);
-		EM.getLocalEm().getTransaction().commit();
+	
+	public void atualizar(ItemCompra x) throws ServicoException {
+		try {
+			
+			
+			Transaction.begin();
+			dao.atualizar(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
+
+	}
+	
+	public void excluir(ItemCompra x) throws ServicoException {
+		try {
+			x = dao.buscar(x.getCodItemCompra());
+			if (!(x.getCompra()==null)) {
+				throw new ServicoException("Exclusão não permitida: este item esta em uma compra!", 2);
+			}
+			
+			Transaction.begin();
+			dao.excluir(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
+
 	}
 	
 	public ItemCompra buscar(int codItemCompra) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import dao.CompraDao;
 import dao.DaoFactory;
-import dao.impl.EM;
+import dao.Transaction;
 import dominio.Compra;
 
 public class CompraServico {
@@ -16,17 +16,67 @@ public class CompraServico {
 		dao = DaoFactory.criarCompraDao();
 	}
 	
-	public void inserirAtualizar(Compra x) {
-		EM.getLocalEm().getTransaction().begin();
-		dao.inserirAtualizar(x);
-		EM.getLocalEm().getTransaction().commit();
+	public void inserir(Compra x)  throws ServicoException {
+		try {
+			
+			
+			Transaction.begin();
+			dao.inserir(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
+}
+	
+	
+	
+	public void atualizar(Compra x) throws ServicoException {
+		try {
+			
+			
+			Transaction.begin();
+			dao.atualizar(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
+
+
 	}
 	
-	public void excluir(Compra x) {
-		EM.getLocalEm().getTransaction().begin();
-		dao.excluir(x);
-		EM.getLocalEm().getTransaction().commit();
+	
+	
+	
+	
+	
+	public void excluir(Compra x)  throws ServicoException {
+		try {
+			x = dao.buscar(x.getCodCompra());
+			if (!x.getItensCompra().isEmpty()) {
+				throw new ServicoException("Exclusão não permitida: este compra possui itens associados!", 2);
+			}
+			
+			Transaction.begin();
+			dao.excluir(x);
+			Transaction.commit();
+		}
+		catch (RuntimeException e) {
+			if (Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			System.out.println("Erro: " + e.getMessage());
+		}
 	}
+
+	
 	
 	public Compra buscar(int codCompra) {
 		return dao.buscar(codCompra);
@@ -36,5 +86,11 @@ public class CompraServico {
 		return dao.buscarTodos();
 	}
 
+	
+	public List<Compra> buscarPorAno(int anoMin, int anoMax) {
+		return dao.buscarPorAno(anoMin, anoMax);
+	}
+
+	
 	
 }

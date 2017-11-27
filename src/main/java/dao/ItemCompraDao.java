@@ -7,7 +7,8 @@ import dominio.ItemCompra;
 public interface ItemCompraDao {
 
 
-	public void inserirAtualizar(ItemCompra x);
+	public void inserir(ItemCompra x);
+	public void atualizar(ItemCompra x);
 	public void excluir(ItemCompra x);
 	public ItemCompra buscar(int codItemCompra);
 	public List<ItemCompra> buscarTodos();
