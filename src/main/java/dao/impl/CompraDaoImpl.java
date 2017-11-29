@@ -63,7 +63,7 @@ public class CompraDaoImpl implements CompraDao {
 	@Override
 	public List<Compra> buscarTodos() {
 
-		String jpql = "SELECT x FROM Compra x";
+		String jpql = "SELECT x FROM Compra x ORDER BY x.horarioCompra";
 		Query query = em.createQuery(jpql);
 		return query.getResultList();
 

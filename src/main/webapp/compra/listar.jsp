@@ -7,10 +7,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Sistema de Vendas</title>
-      <link rel="stylesheet" href="src/main/webapp/resources/css/style.css">
-
-
-
 <link
 	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -26,20 +22,39 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Pagina inicial</h1>
+			<h1>Suas compras</h1>
 		</div>
-		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
-			Protocolos e Programação para Internet</p>
-		<p>
-			Instituto Federal do Triângulo Mineiro - <a
-				href="http://www.iftm.edu.br">www.iftm.edu.br</a>
-		</p>
-		<h2>Página de Login das Tarefas</h2>
-		<form action="efetuaLogin" method="post">
-			Login: <input type="text" name="login" /> <br /> Senha: <input
-				type="password" name="senha" /> <br /> <input type="submit"
-				value="Entrar nas tarefas" />
-		</form>
+
+		<div class="row">
+			<div class="col-sm-2">
+				<form class="navbar-form" action="<%=request.getContextPath()%>/compra/comprar">
+					<button type="submit" class="btn btn-primary">Nova compra</button>
+				</form>
+			</div>
+			
+		</div>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Data</th>
+					<th>Preço total</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${itens}" var="x">
+					<tr>
+						<td>${x.codCompra}</td>
+
+						<td><fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${x.horarioCompra}"/></td>
+						<td><fmt:setLocale value="pt_BR"/><fmt:formatNumber type="currency" value="${x.getPreçoTotal()}" /></td>						
+						<td><a href="<%=request.getContextPath()%>/compra/CompraDetalhes?codCompra=${x.codCompra}" class="btn btn-primary btn-xs">Ver detalhes</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>

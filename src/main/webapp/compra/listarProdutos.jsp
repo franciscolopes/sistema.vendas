@@ -7,10 +7,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Sistema de Vendas</title>
-      <link rel="stylesheet" href="src/main/webapp/resources/css/style.css">
-
-
-
 <link
 	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -26,20 +22,41 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Pagina inicial</h1>
+			<h1>Escolha um produto</h1>
 		</div>
-		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
-			Protocolos e Programação para Internet</p>
-		<p>
-			Instituto Federal do Triângulo Mineiro - <a
-				href="http://www.iftm.edu.br">www.iftm.edu.br</a>
-		</p>
-		<h2>Página de Login das Tarefas</h2>
-		<form action="efetuaLogin" method="post">
-			Login: <input type="text" name="login" /> <br /> Senha: <input
-				type="password" name="senha" /> <br /> <input type="submit"
-				value="Entrar nas tarefas" />
-		</form>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Nome</th>
+					<th>Preço</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${itens}" var="x">
+					<tr>
+						<td>${x.codProduto}</td>
+						<td>${x.nome}</td>
+						
+						<td><fmt:setLocale value="pt_BR"/><fmt:formatNumber type="currency" value="${x.preco}" /></td>
+						
+						
+						<td><a href="<%=request.getContextPath()%>/compra/ProdutoDetalhes?codProduto=${x.codProduto}" 
+						class="btn btn-primary btn-xs">Ver produto</a></td>
+						
+						<!--<td><a href="<%=request.getContextPath()%>/compra/detalhes.jsp" 
+						class="btn btn-primary btn-xs">Ver produto</a></td>-->
+						
+						
+						
+						
+						<!--<td><a href="<%=request.getContextPath()%>/compra/novo?codProduto=${x.codProduto}" 
+						class="btn btn-primary btn-xs">Ver produto</a></td>-->
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>

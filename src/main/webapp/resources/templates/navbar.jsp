@@ -9,17 +9,13 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/">Sistema
-				de Filmes</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp">Sistema
+				de Vendas</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<%=request.getContextPath()%>/artista/listar">Cadastro
-						de Artistas</a></li>
-				<li><a href="<%=request.getContextPath()%>/filme/pesquisar">Pesquisar
-						Filmes</a></li>
-				<li><a href="<%=request.getContextPath()%>/participacao/filmes">Inserir
-						Participação</a></li>
+				<li><a href="<%=request.getContextPath()%>/compra/listar">Minhas compras</a></li>
+				<li><a href="<%=request.getContextPath()%>/compra/comprar">Nova compra</a></li>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->

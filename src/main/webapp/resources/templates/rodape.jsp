@@ -1,7 +1,7 @@
 <footer class="footer">
 	<div class="container">
 		<p class="text-muted">
-			Educandoweb - <a href="https://youtube.com/educandoweb">youtube.com/educandoweb</a>
+			Instituto Federal do Triângulo Mineiro - <a href="http://www.iftm.edu.br">www.iftm.edu.br</a>
 		</p>
 	</div>
 </footer>
