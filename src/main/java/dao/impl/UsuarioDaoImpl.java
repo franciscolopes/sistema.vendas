@@ -81,6 +81,22 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		List<Usuario> aux = query.getResultList();
 		return (aux.size() > 0) ? aux.get(0) : null;
 	}
+	
+	
+	/*----------LOGIN-----------*/
+	@SuppressWarnings("unchecked")
+	@Override
+	public Boolean buscarUsuarioExato(String nome, String senha){
+		String jpql = "SELECT x FROM Usuario x WHERE x.nomeUsuario = :p0 AND x.senhaUsuario = :p1";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p0", nome);
+		query.setParameter("p1", senha);
+		List<Usuario> aux = query.getResultList();
+		//return (aux.size() > 0) ? aux.get(0) : null;
+		return (aux.size() > 0) ? true : false;
+	}
+
+	/*----------LOGIN-----------*/
 
 	@SuppressWarnings("unchecked")
 	@Override

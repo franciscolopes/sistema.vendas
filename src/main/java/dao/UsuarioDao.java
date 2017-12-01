@@ -16,4 +16,5 @@ public interface UsuarioDao {
 	public Usuario buscaNomeExatoDiferente(Integer codUsuario, String nome);
 	public List<Usuario> buscarTodosOrdenadosPorNome();
 	public List<Usuario> buscarPorNome(String trecho);
+	public Boolean buscarUsuarioExato(String nome, String senha);
 }

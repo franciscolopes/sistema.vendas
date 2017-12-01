@@ -81,6 +81,17 @@ public class UsuarioServico {
 		return dao.buscar(codUsuario);
 	}
 	
+	/*-----------------LOGIN---------------------*/
+	public Boolean existeUsuario(String nome, String senha){
+		
+		if(dao.buscarUsuarioExato(nome, senha)==true){
+			return true;
+		}else{
+			return false;
+		}
+			
+	}
+	/*-----------------LOGIN---------------------*/
 	public List<Usuario> buscarTodos() {
 		return dao.buscarTodos();
 	}

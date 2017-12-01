@@ -26,20 +26,12 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Pagina inicial</h1>
+			<h1>Bem vindo ao Sistema de Vendas, ${usuarioLogado.nome}</h1>
 		</div>
 		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
 			Protocolos e Programação para Internet</p>
-		<p>
-			Instituto Federal do Triângulo Mineiro - <a
-				href="http://www.iftm.edu.br">www.iftm.edu.br</a>
-		</p>
-		<h2>Página de Login das Tarefas</h2>
-		<form action="efetuaLogin" method="post">
-			Login: <input type="text" name="login" /> <br /> Senha: <input
-				type="password" name="senha" /> <br /> <input type="submit"
-				value="Entrar nas tarefas" />
-		</form>
+		
+		
 	</div>
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>
