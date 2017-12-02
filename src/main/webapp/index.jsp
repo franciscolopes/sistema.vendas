@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Sistema de Vendas</title>
-      <link rel="stylesheet" href="src/main/webapp/resources/css/style.css">
+<link rel="stylesheet" href="src/main/webapp/resources/css/style.css">
 
 
 
@@ -20,18 +21,23 @@
 </head>
 
 <body>
+	<%
+		HttpSession sessaoAtual = request.getSession(false);
+		String nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+	%>
 
 	<jsp:include page="/resources/templates/navbar.jsp" />
 
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Bem vindo ao Sistema de Vendas, </h1> 
+			<h1>Bem vindo(a), <%out.print(nomeUsuario);%>!</h1>
+			
 		</div>
 		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
 			Protocolos e Programação para Internet</p>
-		
-		
+
+
 	</div>
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>
