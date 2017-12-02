@@ -22,8 +22,16 @@
 
 <body>
 	<%
-		HttpSession sessaoAtual = request.getSession(false);
-		String nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+	HttpSession sessaoAtual = request.getSession(false);
+	String nomeUsuario ="";
+	if (sessaoAtual != null) {
+		if (sessaoAtual.getAttribute("usuarioLogado") != null) {
+		nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+		} else {
+			response.sendRedirect("login.jsp");
+		}
+		
+	}
 	%>
 
 	<jsp:include page="/resources/templates/navbar.jsp" />
@@ -31,8 +39,11 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Bem vindo(a), <%out.print(nomeUsuario);%>!</h1>
-			
+			<h1>
+				Bem vindo(a),
+				<%out.print(nomeUsuario);%>!
+			</h1>
+
 		</div>
 		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
 			Protocolos e Programação para Internet</p>
