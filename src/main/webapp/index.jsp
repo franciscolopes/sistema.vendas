@@ -26,7 +26,7 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Bem vindo ao Sistema de Vendas, ${usuarioLogado.nome}</h1>
+			<h1>Bem vindo ao Sistema de Vendas, </h1> 
 		</div>
 		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
 			Protocolos e Programação para Internet</p>

@@ -29,24 +29,29 @@ public class Login extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String nome = request.getParameter("nome");
-		String senha = request.getParameter("senha");
+		String name = request.getParameter("nome");
+		String pass = request.getParameter("senha");
 		int n1 = 1;
 		int n2 = 2;
-		HttpSession sessao = request.getSession();
-		//if (servicoUsuario.existeUsuario(nome, senha)==true) {
-		if (n1 > n2) {
+
 		
-			sessao.setAttribute("usuarioLogado", nome);
-			RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-			rs.include(request, response);
+		//if (servicoUsuario.existeUsuario(nome, senha)==true) {
+		if (name.equals("ana")) {
+			out.print("Welcome, " + name);
+			HttpSession sessao = request.getSession(true);
+			sessao.setAttribute("usuarioLogado", name);
+			sessao.setMaxInactiveInterval(30); // 30 seconds
+			response.sendRedirect("index.jsp");
+			//RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+			//rs.include(request, response);
 			//request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 
 		else {
-			out.println("Usuário ou senha incorretos");
+			//out.println("Usuário ou senha incorretos");
 			//RequestDispatcher rs = request.getRequestDispatcher("login.jsp");
 			RequestDispatcher rs = request.getRequestDispatcher("login.jsp");
+			out.println("<font color=red>Either user name or password is wrong.</font>");
 			rs.include(request, response);
 		}
 

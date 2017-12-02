@@ -148,15 +148,7 @@ body {
 	
 	<div class="login-page">
 		<div class="form">
-			<form class="register-form">
-				<input type="text" placeholder="nome" /> 
-				<input type="senha" placeholder="senha" /> 
-				<input type="text" placeholder="email address" />
-				<button>create</button>
-				<p class="message">
-					Already registered? <a href="#">Sign In</a>
-				</p>
-			</form>
+			
 			<form class="login-form" action="efetuaLogin" method="post">
 				<input type="text" placeholder="nome" name="nome"/> 
 				<input type="password" placeholder="senha" name="senha"/>
