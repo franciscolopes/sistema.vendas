@@ -20,38 +20,40 @@ public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private UsuarioServico servicoUsuario;
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
+	
 
+		UsuarioServico servicoUsuario = new UsuarioServico();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String name = request.getParameter("nome");
-		String pass = request.getParameter("senha");
-		int n1 = 1;
-		int n2 = 2;
-
+		String nome = request.getParameter("nome");
+		String senha = request.getParameter("senha");
+		///*
+		String nomeVerificado = "";
+		String senhaVerificada = "";
 		
-		//if (servicoUsuario.existeUsuario(nome, senha)==true) {
-		if (name.equals("ana")) {
-			out.print("Welcome, " + name);
+		Boolean usuarioExiste = servicoUsuario.existeUsuario(nome, senha);
+		if(usuarioExiste==true){
+			nomeVerificado = nome;
+			senhaVerificada = senha;
+		}
+		
+		if ((nome==nomeVerificado) && (senha==senhaVerificada)) {
+			out.print("Welcome, " + nome);
 			HttpSession sessao = request.getSession(true);
-			sessao.setAttribute("usuarioLogado", name);
+			sessao.setAttribute("usuarioLogado", nome);
 			sessao.setMaxInactiveInterval(30); // 30 seconds
 			response.sendRedirect("index.jsp");
-			//RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-			//rs.include(request, response);
-			//request.getRequestDispatcher("index.jsp").forward(request, response);
+			
 		}
 
 		else {
-			//out.println("Usuário ou senha incorretos");
-			//RequestDispatcher rs = request.getRequestDispatcher("login.jsp");
+			
 			RequestDispatcher rs = request.getRequestDispatcher("login.jsp");
-			out.println("<font color=red>Either user name or password is wrong.</font>");
+			out.println("<font color=red>Usuário ou senha incorretos.</font>");
 			rs.include(request, response);
 		}
 

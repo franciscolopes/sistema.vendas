@@ -87,7 +87,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Boolean buscarUsuarioExato(String nome, String senha){
-		String jpql = "SELECT x FROM Usuario x WHERE x.nomeUsuario = :p0 AND x.senhaUsuario = :p1";
+		String jpql = "SELECT x FROM Usuario x WHERE x.nome = :p0 AND x.senha = :p1";
 		Query query = em.createQuery(jpql);
 		query.setParameter("p0", nome);
 		query.setParameter("p1", senha);
