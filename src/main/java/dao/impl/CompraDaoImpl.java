@@ -70,6 +70,22 @@ public class CompraDaoImpl implements CompraDao {
 	}
 	
 	
+	
+	/*----retorna compras do usuario-----*/
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Compra> buscarComprasUsuario(int codUsuario) {
+
+		String jpql = "SELECT x FROM Compra x WHERE x.usuario.codUsuario = :p0 ORDER BY x.horarioCompra ";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p0", codUsuario);
+		return query.getResultList();
+
+	}
+	/*----retorna compras do usuario-----*/
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Compra> buscarPorAno(int anoMin, int anoMax) {

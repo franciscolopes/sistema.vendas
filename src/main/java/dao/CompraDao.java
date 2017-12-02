@@ -13,7 +13,7 @@ public interface CompraDao {
 	public Compra buscar(int codCompra);
 	public List<Compra> buscarTodos();
 	public List<Compra> buscarPorAno(int anoMin, int anoMax);
-	
+	public List<Compra> buscarComprasUsuario(int codUsuario);
 
 	
 }

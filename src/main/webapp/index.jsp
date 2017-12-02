@@ -24,9 +24,11 @@
 	<%
 	HttpSession sessaoAtual = request.getSession(false);
 	String nomeUsuario ="";
+	int codUsuario = 0;
 	if (sessaoAtual != null) {
 		if (sessaoAtual.getAttribute("usuarioLogado") != null) {
 		nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+		codUsuario = (Integer) sessaoAtual.getAttribute("codUsuarioLogado");
 		} else {
 			response.sendRedirect("login.jsp");
 		}
@@ -41,7 +43,7 @@
 		<div class="page-header">
 			<h1>
 				Bem vindo(a),
-				<%out.print(nomeUsuario);%>!
+				<%out.print(codUsuario);%>!
 			</h1>
 
 		</div>

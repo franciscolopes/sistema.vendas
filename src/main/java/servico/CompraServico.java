@@ -86,6 +86,15 @@ public class CompraServico {
 		return dao.buscarTodos();
 	}
 
+	/*-------retorna compras do usuario---------*/
+	public List<Compra> buscarTodosUsuario(int codUsuario) {
+		return dao.buscarComprasUsuario(codUsuario);
+	}
+	
+	/*-------retorna compras do usuario---------*/
+	
+	
+	
 	
 	public List<Compra> buscarPorAno(int anoMin, int anoMax) {
 		return dao.buscarPorAno(anoMin, anoMax);

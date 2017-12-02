@@ -41,10 +41,14 @@ public class Login extends HttpServlet {
 			senhaVerificada = senha;
 		}
 		
+		int codUsuario = servicoUsuario.retornaCodUsuario(nome, senha);
+		
+		
 		if ((nome==nomeVerificado) && (senha==senhaVerificada)) {
-			out.print("Welcome, " + nome);
+			
 			HttpSession sessao = request.getSession(true);
 			sessao.setAttribute("usuarioLogado", nome);
+			sessao.setAttribute("codUsuarioLogado", codUsuario);
 			sessao.setMaxInactiveInterval(30); // 30 seconds
 			response.sendRedirect("index.jsp");
 			

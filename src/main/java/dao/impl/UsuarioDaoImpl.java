@@ -97,6 +97,24 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 
 	/*----------LOGIN-----------*/
+	
+	
+	/*------RETORNA COD USUARIO-------*/
+
+	public Integer buscarCodUsuarioExato(String nome, String senha){
+		String jpql = "SELECT x FROM Usuario x WHERE x.nome = :p0 AND x.senha = :p1";
+		Query query = em.createQuery(jpql);
+		query.setParameter("p0", nome);
+		query.setParameter("p1", senha);
+		List<Usuario> aux = query.getResultList();
+		//return (aux.size() > 0) ? aux.get(0) : null;
+		return (aux.size() > 0) ? aux.get(0).getCodUsuario() : 0;
+	}
+
+	
+	/*------RETORNA COD USUARIO-------*/
+	
+	
 
 	@SuppressWarnings("unchecked")
 	@Override

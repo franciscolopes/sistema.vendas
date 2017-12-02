@@ -92,6 +92,18 @@ public class UsuarioServico {
 			
 	}
 	/*-----------------LOGIN---------------------*/
+	
+	/*-----------------retornaCodUsuario---------------------*/
+	public Integer retornaCodUsuario(String nome, String senha){
+		
+		return dao.buscarCodUsuarioExato(nome, senha);
+		
+			
+	}
+	/*-----------------retornaCodUsuario---------------------*/
+	
+	
+	
 	public List<Usuario> buscarTodos() {
 		return dao.buscarTodos();
 	}
