@@ -32,11 +32,11 @@ public class Login extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String senha = request.getParameter("senha");
 		///*
-		String nomeVerificado = "";
-		String senhaVerificada = "";
+		String nomeVerificado = "X";
+		String senhaVerificada = "X";
 		
 		Boolean usuarioExiste = servicoUsuario.existeUsuario(nome, senha);
-		if(usuarioExiste==true){
+		if((usuarioExiste==true)&&(nome!="")&&(senha!="")){
 			nomeVerificado = nome;
 			senhaVerificada = senha;
 		}
