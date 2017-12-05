@@ -22,18 +22,27 @@
 
 <body>
 	<%
-	HttpSession sessaoAtual = request.getSession(false);
-	String nomeUsuario ="";
-	int codUsuario = 0;
-	if (sessaoAtual != null) {
-		if (sessaoAtual.getAttribute("usuarioLogado") != null) {
-		nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
-		codUsuario = (Integer) sessaoAtual.getAttribute("codUsuarioLogado");
-		} else {
+		String nomeUsuario = null;
+		int codUsuario = 0;
+		HttpSession sessaoAtual = request.getSession(false);
+		//String nomeUsuarioLogado = (String) sessaoAtual.getAttribute("usuarioLogado");
+		if (sessaoAtual== null) {// sessaoAtual.getAttribute("usuarioLogado")
 			response.sendRedirect("login.jsp");
+		} else {
+			nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+			codUsuario = (Integer) sessaoAtual.getAttribute("codUsuarioLogado");
+			String nome = null;
+			String sessaoID = null;
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("usuarioLogado"))
+						nome = cookie.getValue();
+					if (cookie.getName().equals("JSESSIONID"))
+						sessaoID = cookie.getValue();
+				}
+			}
 		}
-		
-	}
 	%>
 
 	<jsp:include page="/resources/templates/navbar.jsp" />
@@ -43,7 +52,7 @@
 		<div class="page-header">
 			<h1>
 				Bem vindo(a),
-				<%out.print(codUsuario);%>!
+				<% out.print(nomeUsuario); %>!
 			</h1>
 
 		</div>
@@ -57,7 +66,6 @@
 
 	<!-- Core JS -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

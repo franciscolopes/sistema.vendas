@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +50,12 @@ public class Login extends HttpServlet {
 			HttpSession sessao = request.getSession(true);
 			sessao.setAttribute("usuarioLogado", nome);
 			sessao.setAttribute("codUsuarioLogado", codUsuario);
-			sessao.setMaxInactiveInterval(30); // 30 seconds
+			sessao.setMaxInactiveInterval(5*60); // 300 seconds 5 min
+			
+			Cookie nomeUsuario = new Cookie("usuarioLogado", nome);
+			nomeUsuario.setMaxAge(5*60);
+			
+			response.addCookie(nomeUsuario);
 			response.sendRedirect("index.jsp");
 			
 		}
