@@ -2,6 +2,7 @@ package web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import dominio.Produto;
+import servico.ProdutoServico;
 import servico.UsuarioServico;
 
 @WebServlet("/efetuaLogin")
@@ -44,12 +47,19 @@ public class Login extends HttpServlet {
 		
 		int codUsuario = servicoUsuario.retornaCodUsuario(nome, senha);
 		
+		ProdutoServico ps = new ProdutoServico();
+		List<Produto> itens = ps.buscarTodos();
+		int qtdeProdutos = itens.size();
+		
 		
 		if ((nome==nomeVerificado) && (senha==senhaVerificada)) {
 			
 			HttpSession sessao = request.getSession(true);
 			sessao.setAttribute("usuarioLogado", nome);
 			sessao.setAttribute("codUsuarioLogado", codUsuario);
+			sessao.setAttribute("qtdeProdutos", qtdeProdutos);
+			
+			
 			sessao.setMaxInactiveInterval(5*60); // 300 seconds 5 min
 			
 			Cookie nomeUsuario = new Cookie("usuarioLogado", nome);
@@ -57,6 +67,8 @@ public class Login extends HttpServlet {
 			
 			Cookie codigoUsuario = new Cookie("codUsuarioLogado", Integer.toString(codUsuario));
 			codigoUsuario.setMaxAge(5*60);
+			
+			
 			
 			response.addCookie(nomeUsuario);
 			response.addCookie(codigoUsuario);

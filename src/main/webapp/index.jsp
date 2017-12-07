@@ -28,8 +28,11 @@
 
 <body>
 	<%
+	
 		String nomeUsuario = null;
 		int codUsuario = 0;
+		String produtos=""; 
+		int quantidadeProdutos = 0;
 		HttpSession sessaoAtual = request.getSession(false);
 		//String nomeUsuarioLogado = (String) sessaoAtual.getAttribute("usuarioLogado");
 		if (sessaoAtual.getAttribute("usuarioLogado") == null) {// sessaoAtual.getAttribute("usuarioLogado")
@@ -37,6 +40,7 @@
 		} else {
 			nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
 			codUsuario = (Integer) sessaoAtual.getAttribute("codUsuarioLogado");
+			quantidadeProdutos = (Integer) sessaoAtual.getAttribute("qtdeProdutos");
 			String nome = null;
 			String sessaoID = null;
 			Cookie[] cookies = request.getCookies();
@@ -47,6 +51,19 @@
 					if (cookie.getName().equals("JSESSIONID"))
 						sessaoID = cookie.getValue();
 				}
+				
+				for (int i =0; i<quantidadeProdutos; i++){
+					for (Cookie cookie : cookies) {
+						if (cookie.getName().equals("codProdutoOlhado"+i)){
+							produtos = produtos +";"+ cookie.getValue();
+						}else {
+							produtos = " sem cookie";
+						}
+							
+				}
+				}
+				
+				
 			}
 		}
 	%>
@@ -62,7 +79,7 @@
 			<h1>
 				Bem vindo(a),
 				<%
-				out.print(nomeUsuario);
+				out.print(nomeUsuario);out.print(produtos);
 			%>!
 			</h1>
 			

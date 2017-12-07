@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,12 @@ public class ProdutoDetalhes extends HttpServlet {
 		ProdutoServico ps = new ProdutoServico();
 		int codProduto = Integer.parseInt(request.getParameter("codProduto"));
 		Produto produto = ps.buscar(codProduto);
+		
+		Cookie produtoOlhado = new Cookie("codProdutoOlhado"+codProduto, Integer.toString(codProduto));
+		produtoOlhado.setMaxAge(5*60);
+		
+		response.addCookie(produtoOlhado);
+		
 		request.setAttribute("item", produto);
 		request.getRequestDispatcher(DESTINO).forward(request, response);
 	}
