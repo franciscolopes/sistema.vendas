@@ -1,10 +1,10 @@
 package web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,25 +18,25 @@ public class Logout extends HttpServlet {
 
 	@Autowired
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		/*
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		HttpSession sessaoAtual = request.getSession(false);
-		// String nomeUsuario ="";
-		sessaoAtual = null;
-		if (sessaoAtual == null) {
-
-			response.sendRedirect("login.jsp");
-
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("JSESSIONID")) {
+					System.out.println("JSESSIONID=" + cookie.getValue());
+					break;
+				}
+			}
 		}
-
-		// HttpSession sessaoAtual = request.getSession(false);
-		// sessaoAtual.setAttribute("usuarioLogado", null);
-		// sessaoAtual.removeAttribute("usuarioLogado");
-		// sessaoAtual.getMaxInactiveInterval();
-*/
+		// invalida sessao se existir
+		HttpSession sessao = request.getSession(false);
+		System.out.println("User=" + sessao.getAttribute("usuarioLogado"));
+		if (sessao != null) {
+			sessao.invalidate();
+		}
+		response.sendRedirect("login.jsp");
 	}
 
 }

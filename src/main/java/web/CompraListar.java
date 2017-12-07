@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,9 +24,21 @@ public class CompraListar extends HttpServlet {
 
     	CompraServico cs = new CompraServico();
     	HttpSession sessaoAtual = request.getSession(false);
-    	int codUsuario = 2;
+    	//int codUsuario = 2;
+    	int codUsuario = 0;
     	//codUsuario = (Integer) sessaoAtual.getAttribute("codUsuarioLogado");
     	//nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
+    	
+    	String codigo="";
+    	Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("codUsuarioLogado"))
+					codigo = cookie.getValue();
+				
+			}
+		}
+		codUsuario = Integer.parseInt(codigo);
     	
 		List<Compra> itens = cs.buscarTodosUsuario(codUsuario);
 		request.setAttribute("itens", itens);

@@ -55,7 +55,11 @@ public class Login extends HttpServlet {
 			Cookie nomeUsuario = new Cookie("usuarioLogado", nome);
 			nomeUsuario.setMaxAge(5*60);
 			
+			Cookie codigoUsuario = new Cookie("codUsuarioLogado", Integer.toString(codUsuario));
+			codigoUsuario.setMaxAge(5*60);
+			
 			response.addCookie(nomeUsuario);
+			response.addCookie(codigoUsuario);
 			response.sendRedirect("index.jsp");
 			
 		}

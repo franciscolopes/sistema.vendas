@@ -41,7 +41,22 @@
 	right: 0;
 }
 </style>
-
+<%
+	//allow access only if session exists
+	HttpSession sessaoAtual = request.getSession(false);
+	if (sessaoAtual.getAttribute("user") == null) {
+		response.sendRedirect("login.jsp");
+	}
+	String nomeUsuario = null;
+	String sessionID = null;
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null) {
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("usuarioLogado"))
+				nomeUsuario = cookie.getValue();
+		}
+	}
+%>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -61,9 +76,13 @@
 						compras</a></li>
 				<li><a href="<%=request.getContextPath()%>/compra/comprar">Nova
 						compra</a></li>
-				
-				<li><form action="login.jsp" ><button type="submit" value="Sair" class="button"><span>Sair </span> </button></form></li>
-				
+
+				<li><form action="Logout" method="POST">
+						<button type="submit" value="Sair" class="button">
+							<span>Sair </span>
+						</button>
+					</form></li>
+
 
 			</ul>
 		</div>

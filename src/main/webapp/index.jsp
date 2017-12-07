@@ -18,6 +18,12 @@
 <link
 	href="<%=request.getContextPath()%>/resources/css/sticky-footer-navbar.css"
 	rel="stylesheet">
+	
+	
+	
+	
+	
+	
 </head>
 
 <body>
@@ -26,7 +32,7 @@
 		int codUsuario = 0;
 		HttpSession sessaoAtual = request.getSession(false);
 		//String nomeUsuarioLogado = (String) sessaoAtual.getAttribute("usuarioLogado");
-		if (sessaoAtual== null) {// sessaoAtual.getAttribute("usuarioLogado")
+		if (sessaoAtual.getAttribute("usuarioLogado") == null) {// sessaoAtual.getAttribute("usuarioLogado")
 			response.sendRedirect("login.jsp");
 		} else {
 			nomeUsuario = (String) sessaoAtual.getAttribute("usuarioLogado");
@@ -48,24 +54,31 @@
 	<jsp:include page="/resources/templates/navbar.jsp" />
 
 	<!-- Begin page content -->
+	<form action="Logout" method="POST">
+
+	</form>
 	<div class="container">
 		<div class="page-header">
 			<h1>
 				Bem vindo(a),
-				<% out.print(nomeUsuario); %>!
+				<%
+				out.print(nomeUsuario);
+			%>!
 			</h1>
+			
 
 		</div>
 		<p class="lead">Sistema de Vendas desenvolvido na Disciplina
 			Protocolos e Programação para Internet</p>
-
+	
 
 	</div>
-
+	
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>
 
 	<!-- Core JS -->
 	<script src="<%=request.getContextPath()%>/resources/js/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
