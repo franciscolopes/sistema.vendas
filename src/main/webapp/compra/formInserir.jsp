@@ -18,16 +18,21 @@
 <body>
 
 	<jsp:include page="/resources/templates/navbar.jsp" />
-
+	
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Inserir item no carrinho</h1>
+			<h1>Inserir item no carrinho de ${usuario.nome}</h1>
 		</div>
 
 		<form method="post" name="myform" class="form-horizontal"
-			action="<%=request.getContextPath()%>/compra/inserir">
-
+			action="<%=request.getContextPath()%>/compra/itemInserir">
+			
+			<input type="hidden" name="codProduto" value="${prod.codProduto}" />
+			<input type="hidden" name="codUsuario" value="${usuario.codUsuario}" />
+			<input type="hidden" name="codCompra" value="${compra.codCompra}" />
+			
+			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<ul>
@@ -49,14 +54,14 @@
 				<label class="col-sm-2 control-label" for="preco">Preço:</label>
 				<div class="col-sm-5">
 					<input type="text" name="preco" id="preco"
-						value="${item.preco}" required="required"
+						value="${prod.preco}" required="required"
 						class="form-control" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="quantidade">Quantidade:</label>
 				<div class="col-sm-5">
-					<input type="text" name="quantidade" id="quantidade" value="${item.cache}"
+					<input type="text" name="quantidade" id="quantidade" value="${item.quantidade}"
 						required="required" class="form-control" />
 				</div>
 			</div>
@@ -64,11 +69,13 @@
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-primary">Inserir</button>
-					<a href="<%=request.getContextPath()%>/artista/listar"
+					
+					<a href="<%=request.getContextPath()%>/compra/ProdutoDetalhes?codProduto=${prod.codProduto}"
 						class="btn btn-default">Voltar</a>
 				</div>
 			</div>
 		</form>
+		
 	</div>
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>

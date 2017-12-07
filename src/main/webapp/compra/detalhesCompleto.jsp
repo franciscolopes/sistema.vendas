@@ -22,28 +22,23 @@
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
-			<h1>Detalhes do produto</h1>
+			<h1>Detalhes do filme</h1>
 		</div>
 
 		<div>
 			<ul class="list-group">
-				<li class="list-group-item">Código: ${item.codProduto}</li>
-				<li class="list-group-item">Nome: ${item.nome}</li>
-				<li class="list-group-item">Preço: <fmt:setLocale value="pt_BR" /> <fmt:formatNumber
-						type="currency" value="${item.preco}" /></li>
+				<li class="list-group-item">Código: ${itemCompra.codItemCompra}</li>
+				<li class="list-group-item">Desconto: <fmt:setLocale value="pt_BR" /> <fmt:formatNumber type="currency"
+						value="${item.desconto}" /></li>
+				<li class="list-group-item">Preço: <fmt:setLocale value="pt_BR" /> <fmt:formatNumber type="currency"
+						value="${item.preco}" /></li>
+				<li class="list-group-item">Quantidade: ${item.quantidade}</li>
+
 			</ul>
 		</div>
-
-		 <div>
-			<a href="<%=request.getContextPath()%>/compra/comprar" class="btn btn-success">Voltar</a>
-				
-			
-			
-			<a href="<%=request.getContextPath()%>/compra/novo?codProduto=${item.codProduto}" 
-			class="btn btn-success">Comprar</a>
-				
-		</div> 
 	</div>
+
+	
 
 	<jsp:include page="/resources/templates/rodape.jsp"></jsp:include>
 
